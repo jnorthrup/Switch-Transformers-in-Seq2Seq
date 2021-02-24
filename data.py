@@ -4,8 +4,8 @@ import torch
 from torchtext.datasets import TranslationDataset, Multi30k
 from torchtext.data import Field, BucketIterator
 
-spacy_de = spacy.load('de')
-spacy_en = spacy.load('en')
+spacy_de = spacy.load('de_core_news_sm')
+spacy_en = spacy.load('en_core_web_sm')
 
 
 def tokenize_de(text):

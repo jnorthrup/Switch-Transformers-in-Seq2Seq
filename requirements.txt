@@ -1,7 +1,6 @@
 torch
 torchtext
-numpy
+numpy-ml
 spacy
 tqdm
 matplotlib
-pickle

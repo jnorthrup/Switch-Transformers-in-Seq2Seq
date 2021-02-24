@@ -1,11 +1,12 @@
+from torch.optim import Optimizer, Adam
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+
 import config
 import data
 import model
 import torch
 from tqdm import tqdm
 import numpy as np
-
-
 INPUT_DIM = len(data.SRC.vocab)
 OUTPUT_DIM = len(data.TRG.vocab)
 TRG_PAD_IDX = data.TRG.vocab.stoi[data.TRG.pad_token]
@@ -39,7 +40,7 @@ decoder = model.Decoder(output_dim=OUTPUT_DIM,
 
 seq_2_seq = model.Seq2Seq(encoder, decoder, SRC_PAD_IDX, TRG_PAD_IDX, config.DEVICE).to(config.DEVICE)
 
-optimizer = torch.optim.Adam(seq_2_seq.parameters(), lr=config.LR)
+optimizer = torch.optim.Adamax(seq_2_seq.parameters(), lr=config.LR)
 criterion = torch.nn.CrossEntropyLoss(ignore_index=TRG_PAD_IDX)
 
 
@@ -101,3 +102,5 @@ def eval_fn(init_checkpoint=None):
             epoch_loss += loss.item()
 
     return epoch_loss / len(val_iterator)
+
+
